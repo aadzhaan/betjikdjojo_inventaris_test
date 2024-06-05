@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DivisiController;
+use App\Http\Controllers\InventarisController;
 use App\Http\Controllers\KategoriBarangController;
 use App\Http\Controllers\StatusController;
 use Illuminate\Http\Request;
@@ -40,4 +41,12 @@ Route::prefix('/status')->name('status.')->group(function () {
     Route::post('/store', [StatusController::class, 'store'])->name('store');
     Route::post('/update', [StatusController::class, 'update'])->name('update');
     Route::delete('/delete/{id}', [StatusController::class, 'delete'])->name('delete');
+});
+
+Route::prefix('/inventaris')->name('inventaris.')->group(function () {
+    Route::get('/data', [InventarisController::class, 'data'])->name('data');
+    Route::get('/detail/{id}', [InventarisController::class, 'detail'])->name('detail');
+    Route::post('/store', [InventarisController::class, 'store'])->name('store');
+    Route::post('/update', [InventarisController::class, 'update'])->name('update');
+    Route::delete('/delete/{id}', [InventarisController::class, 'delete'])->name('delete');
 });

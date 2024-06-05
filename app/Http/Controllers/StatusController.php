@@ -61,7 +61,7 @@ class StatusController extends Controller
         $usedStatusinPermintaan = Permintaan::where('status_id', $id)->get();
 
         if(count($usedStatusinPenambahan) > 0 || count($usedStatusinPermintaan) > 0){
-            return response()->json(['status' => 'error', 'message' => 'Gagal menghapus Status, Data telah digunakan', 'data' => $usedStatus]);
+            return response()->json(['status' => 'error', 'message' => 'Gagal menghapus Status, Data telah digunakan']);
         }
         
         $delete = Status::find($id);

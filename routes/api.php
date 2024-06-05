@@ -4,6 +4,7 @@ use App\Http\Controllers\DivisiController;
 use App\Http\Controllers\InventarisController;
 use App\Http\Controllers\KategoriBarangController;
 use App\Http\Controllers\StatusController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -49,4 +50,13 @@ Route::prefix('/inventaris')->name('inventaris.')->group(function () {
     Route::post('/store', [InventarisController::class, 'store'])->name('store');
     Route::post('/update', [InventarisController::class, 'update'])->name('update');
     Route::delete('/delete/{id}', [InventarisController::class, 'delete'])->name('delete');
+});
+
+Route::prefix('/user')->name('user.')->group(function () {
+    Route::post('/login', [UserController::class, 'login'])->name('login');
+    Route::get('/data', [UserController::class, 'data'])->name('data');
+    Route::get('/detail/{id}', [UserController::class, 'detail'])->name('detail');
+    Route::post('/store', [UserController::class, 'store'])->name('store');
+    Route::post('/update', [UserController::class, 'update'])->name('update');
+    Route::delete('/delete/{id}', [UserController::class, 'delete'])->name('delete');
 });

@@ -64,13 +64,6 @@ class InventarisController extends Controller
             'jumlah' => ['required'],
         ]);
 
-        $create = Inventaris::create([
-            'kategori_barang_id' => $request->kategori_barang_id,
-            'kode' => $request->kode,
-            'nama' => $request->nama,
-            'jumlah' => $request->jumlah,
-        ]);
-
         $update = Inventaris::find($request->id);
         $update->kategori_barang_id = $request->kategori_barang_id;
         $update->kode = $request->kode;

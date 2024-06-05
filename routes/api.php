@@ -3,6 +3,7 @@
 use App\Http\Controllers\DivisiController;
 use App\Http\Controllers\InventarisController;
 use App\Http\Controllers\KategoriBarangController;
+use App\Http\Controllers\PenambahanController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -19,9 +20,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
 Route::prefix('/divisi')->name('divisi.')->group(function () {
     Route::get('/data', [DivisiController::class, 'data'])->name('data');
@@ -59,4 +60,13 @@ Route::prefix('/user')->name('user.')->group(function () {
     Route::post('/store', [UserController::class, 'store'])->name('store');
     Route::post('/update', [UserController::class, 'update'])->name('update');
     Route::delete('/delete/{id}', [UserController::class, 'delete'])->name('delete');
+});
+
+Route::prefix('/penambahan')->name('penambahan.')->group(function () {
+    Route::get('/data', [PenambahanController::class, 'data'])->name('data');
+    Route::get('/detail/{id}', [PenambahanController::class, 'detail'])->name('detail');
+    Route::post('/store', [PenambahanController::class, 'store'])->name('store');
+    Route::post('/update', [PenambahanController::class, 'update'])->name('update');
+    Route::delete('/delete/{id}', [PenambahanController::class, 'delete'])->name('delete');
+    Route::post('/change_status', [PenambahanController::class, 'change_status'])->name('change_status');
 });

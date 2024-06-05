@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DivisiController;
+use App\Http\Controllers\KategoriBarangController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,4 +25,11 @@ Route::prefix('/divisi')->name('divisi.')->group(function () {
     Route::post('/store', [DivisiController::class, 'store'])->name('store');
     Route::post('/update', [DivisiController::class, 'update'])->name('update');
     Route::delete('/delete/{id}', [DivisiController::class, 'delete'])->name('delete');
+});
+
+Route::prefix('/kategori_barang')->name('kategori_barang.')->group(function () {
+    Route::get('/data', [KategoriBarangController::class, 'data'])->name('data');
+    Route::post('/store', [KategoriBarangController::class, 'store'])->name('store');
+    Route::post('/update', [KategoriBarangController::class, 'update'])->name('update');
+    Route::delete('/delete/{id}', [KategoriBarangController::class, 'delete'])->name('delete');
 });

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DivisiController;
 use App\Http\Controllers\KategoriBarangController;
+use App\Http\Controllers\StatusController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -32,4 +33,11 @@ Route::prefix('/kategori_barang')->name('kategori_barang.')->group(function () {
     Route::post('/store', [KategoriBarangController::class, 'store'])->name('store');
     Route::post('/update', [KategoriBarangController::class, 'update'])->name('update');
     Route::delete('/delete/{id}', [KategoriBarangController::class, 'delete'])->name('delete');
+});
+
+Route::prefix('/status')->name('status.')->group(function () {
+    Route::get('/data', [StatusController::class, 'data'])->name('data');
+    Route::post('/store', [StatusController::class, 'store'])->name('store');
+    Route::post('/update', [StatusController::class, 'update'])->name('update');
+    Route::delete('/delete/{id}', [StatusController::class, 'delete'])->name('delete');
 });

@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\DivisiController;
+use App\Http\Controllers\HistoriController;
 use App\Http\Controllers\InventarisController;
 use App\Http\Controllers\KategoriBarangController;
 use App\Http\Controllers\PenambahanController;
+use App\Http\Controllers\PermintaanController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -50,6 +52,7 @@ Route::prefix('/inventaris')->name('inventaris.')->group(function () {
     Route::get('/detail/{id}', [InventarisController::class, 'detail'])->name('detail');
     Route::post('/store', [InventarisController::class, 'store'])->name('store');
     Route::post('/update', [InventarisController::class, 'update'])->name('update');
+    Route::post('/update_quantity/{jumlah}/{inventaris_id}/{status}', [InventarisController::class, 'update_quantity'])->name('update_quantity');
     Route::delete('/delete/{id}', [InventarisController::class, 'delete'])->name('delete');
 });
 
@@ -69,4 +72,20 @@ Route::prefix('/penambahan')->name('penambahan.')->group(function () {
     Route::post('/update', [PenambahanController::class, 'update'])->name('update');
     Route::delete('/delete/{id}', [PenambahanController::class, 'delete'])->name('delete');
     Route::post('/change_status', [PenambahanController::class, 'change_status'])->name('change_status');
+});
+
+Route::prefix('/permintaan')->name('permintaan.')->group(function () {
+    Route::get('/data', [PermintaanController::class, 'data'])->name('data');
+    Route::get('/detail/{id}', [PermintaanController::class, 'detail'])->name('detail');
+    Route::post('/store', [PermintaanController::class, 'store'])->name('store');
+    Route::post('/update', [PermintaanController::class, 'update'])->name('update');
+    Route::delete('/delete/{id}', [PermintaanController::class, 'delete'])->name('delete');
+    Route::post('/change_status', [PermintaanController::class, 'change_status'])->name('change_status');
+});
+
+Route::prefix('/histori')->name('histori.')->group(function () {
+    Route::get('/data', [HistoriController::class, 'data'])->name('data');
+    Route::get('/detail/{id}', [HistoriController::class, 'detail'])->name('detail');
+    Route::get('/inventaris/{id}', [HistoriController::class, 'inventaris'])->name('inventaris');
+    Route::post('/store/{inventaris_id}/{kode}/{tanggal}/{jumlah}/{status}', [HistoriController::class, 'store'])->name('store');
 });

@@ -79,6 +79,28 @@ class InventarisController extends Controller
         }
     }
 
+    public function update_quantity($jumlah, $inventaris_id, $status){
+        $jumlah = $jumlah;
+        $inventaris_id = $inventaris_id;
+        $status = $status;
+
+        $update = Inventaris::find($inventaris_id);
+        if($status == "in"){
+            $update->jumlah = $update->jumlah + $jumlah;
+        }
+        else{
+            $update->jumlah = $update->jumlah - $jumlah;
+        }
+        $result = $update->save();
+
+        if($result){
+            return response()->json(['status' => 'success', 'message' => 'Berhasil mengubah Jumlah Inventaris']);
+        }
+        else{
+            return response()->json(['status' => 'error', 'message' => 'Gagal mengubah Jumlah Inventaris']);
+        }
+    }
+
     public function delete($id){
 
         $usedInventarisinPenambahan = Penambahan::where('status_id', $id)->get();

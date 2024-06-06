@@ -3,32 +3,32 @@
 namespace App\Http\Controllers;
 
 use App\Models\Inventaris;
-use App\Models\Penambahan;
+use App\Models\Permintaan;
 use Illuminate\Http\Request;
 
-class PenambahanController extends Controller
+class PermintaanController extends Controller
 {
     public function data(){
 
-        $data = Penambahan::all();
+        $data = Permintaan::all();
 
         if($data){
-            return response()->json(['status' => 'success', 'message' => 'Berhasil mengambil data Penambahan', 'data' => $data]);
+            return response()->json(['status' => 'success', 'message' => 'Berhasil mengambil data Permintaan', 'data' => $data]);
         }
         else{
-            return response()->json(['status' => 'error', 'message' => 'Gagal mengambil data Penambahan', 'data' => NULL]);
+            return response()->json(['status' => 'error', 'message' => 'Gagal mengambil data Permintaan', 'data' => NULL]);
         }
     }
 
     public function detail($id){
 
-        $data = Penambahan::find($id);
+        $data = Permintaan::find($id);
 
         if($data){
-            return response()->json(['status' => 'success', 'message' => 'Berhasil mengambil detail Penambahan', 'data' => $data]);
+            return response()->json(['status' => 'success', 'message' => 'Berhasil mengambil detail Permintaan', 'data' => $data]);
         }
         else{
-            return response()->json(['status' => 'error', 'message' => 'Gagal mengambil detail Penambahan', 'data' => NULL]);
+            return response()->json(['status' => 'error', 'message' => 'Gagal mengambil detail Permintaan', 'data' => NULL]);
         }
     }
 
@@ -37,11 +37,11 @@ class PenambahanController extends Controller
             'user_id' => ['required'],
             'inventaris_id' => ['required'],
             'tanggal' => ['required'],
-            'kode' => ['required', 'unique:penambahan,kode'],
+            'kode' => ['required', 'unique:Permintaan,kode'],
             'jumlah' => ['required'],
         ]);
 
-        $create = Penambahan::create([
+        $create = Permintaan::create([
             'user_id' => $request->user_id,
             'inventaris_id' => $request->inventaris_id,
             'status_id' => 1,
@@ -51,10 +51,10 @@ class PenambahanController extends Controller
         ]);
 
         if($create){
-            return response()->json(['status' => 'success', 'message' => 'Berhasil menambahkan Penambahan']);
+            return response()->json(['status' => 'success', 'message' => 'Berhasil menambahkan Permintaan']);
         }
         else{
-            return response()->json(['status' => 'error', 'message' => 'Gagal menambahkan Penambahan']);
+            return response()->json(['status' => 'error', 'message' => 'Gagal menambahkan Permintaan']);
         }
     }
 
@@ -63,10 +63,10 @@ class PenambahanController extends Controller
             'user_id' => ['required'],
             'inventaris_id' => ['required'],
             'tanggal' => ['required'],
-            'kode' => ['required', 'unique:penambahan,kode,'.$request->id],
+            'kode' => ['required', 'unique:Permintaan,kode,'.$request->id],
             'jumlah' => ['required'],
         ]);
-        $update = Penambahan::find($request->id);
+        $update = Permintaan::find($request->id);
         $update->user_id = $request->user_id;
         $update->inventaris_id = $request->inventaris_id;
         $update->kode = $request->kode;
@@ -75,34 +75,34 @@ class PenambahanController extends Controller
         $result = $update->save();
 
         if($result){
-            return response()->json(['status' => 'success', 'message' => 'Berhasil mengubah Penambahan']);
+            return response()->json(['status' => 'success', 'message' => 'Berhasil mengubah Permintaan']);
         }
         else{
-            return response()->json(['status' => 'error', 'message' => 'Gagal mengubah Penambahan']);
+            return response()->json(['status' => 'error', 'message' => 'Gagal mengubah Permintaan']);
         }
     }
 
     public function delete($id){
 
-        $usedPenambahan = Penambahan::whereIn('status_id', [2,3])->get();
+        $usedPermintaan = Permintaan::whereIn('status_id', [2,3])->get();
 
-        if(count($usedPenambahan) > 0){
-            return response()->json(['status' => 'error', 'message' => 'Gagal menghapus Penambahan, Data telah digunakan']);
+        if(count($usedPermintaan) > 0){
+            return response()->json(['status' => 'error', 'message' => 'Gagal menghapus Permintaan, Data telah digunakan']);
         }
         
-        $delete = Penambahan::find($id);
+        $delete = Permintaan::find($id);
         $result = $delete->delete();
 
         if($result){
-            return response()->json(['status' => 'success', 'message' => 'Berhasil menghapus Penambahan']);
+            return response()->json(['status' => 'success', 'message' => 'Berhasil menghapus Permintaan']);
         }
         else{
-            return response()->json(['status' => 'error', 'message' => 'Gagal menghapus Penambahan']);
+            return response()->json(['status' => 'error', 'message' => 'Gagal menghapus Permintaan']);
         }
     }
 
     public function change_status(Request $request){
-        $update = Penambahan::find($request->id);
+        $update = Permintaan::find($request->id);
         $update->status_id = $request->status_id;
         $result = $update->save();
         if($result){
@@ -112,15 +112,14 @@ class PenambahanController extends Controller
                     'inventaris_id' => $update->inventaris_id,
                     'kode' => $update->kode,
                     'tanggal' => $update->tanggal,
-                    'status' => "in"
+                    'status' => "out"
                 ]);
             }
-            return response()->json(['status' => 'success', 'message' => 'Berhasil mengubah Status Penambahan']);
+            return response()->json(['status' => 'success', 'message' => 'Berhasil mengubah Status Permintaan']);
         }
         else{
-            return response()->json(['status' => 'error', 'message' => 'Gagal mengubah Status Penambahan']);
+            return response()->json(['status' => 'error', 'message' => 'Gagal mengubah Status Permintaan']);
         }
     }
 
-    
 }
